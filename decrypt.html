@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decrypt Private Key</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        window.addEventListener('load', function() {
+            var libraries = [
+                'https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js',
+                'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js',
+                'https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js',
+                'script.js'
+            ];
+
+            function loadScript(url) {
+                return new Promise((resolve, reject) => {
+                    var script = document.createElement('script');
+                    script.src = url;
+                    script.onload = resolve;
+                    script.onerror = reject;
+                    document.head.appendChild(script);
+                });
+            }
+
+            Promise.all(libraries.map(loadScript))
+                .then(() => {
+                    console.log('All resources loaded');
+                    if (typeof getUrlParameter === 'function') {
+                        const payload = getUrlParameter('payload');
+                        if (payload) {
+                            document.getElementById('encryptedPayload').value = payload;
+                        }
+                    }
+                })
+                .catch(error => console.error('Error loading resources:', error));
+        });
+    </script>
+</head>
+<body>
+    <h1>Decrypt Private Key</h1>
+    <div class="wrapper">
+        <div class="panel" style="flex: 0 0 100%; max-width: 600px; margin: 0 auto;">
+            <button onclick="scanQRCode()">Scan QR Code</button>
+            <div id="reader"></div>
+            <textarea id="encryptedPayload" placeholder="Paste your encrypted payload here" rows="4"></textarea>
+            <input type="password" id="decryptPassword" placeholder="Enter your password">
+            <button onclick="decryptPrivateKey()">Decrypt</button>
+            <p id="decryptStatus" class="status"></p>
+            <textarea id="decryptedOutput" readonly rows="4" placeholder="Decrypted private key will appear here"></textarea>
+        </div>
+    </div>
+    <div style="text-align: center; margin-top: 20px;">
+        <a href="index.html">Back to Home</a> | <a href="encrypt.html">Go to Encrypt</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encrypt Private Key</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        window.addEventListener('load', function() {
+            var libraries = [
+                'https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js',
+                'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js',
+                'https://unpkg.com/qrcodejs@1.0.0/qrcode.min.js',
+                'script.js'
+            ];
+
+            function loadScript(url) {
+                return new Promise((resolve, reject) => {
+                    var script = document.createElement('script');
+                    script.src = url;
+                    script.onload = resolve;
+                    script.onerror = reject;
+                    document.head.appendChild(script);
+                });
+            }
+
+            Promise.all(libraries.map(loadScript))
+                .then(() => console.log('All resources loaded'))
+                .catch(error => console.error('Error loading resources:', error));
+        });
+    </script>
+</head>
+<body>
+    <h1>Encrypt Private Key</h1>
+    <div class="wrapper">
+        <div class="panel" style="flex: 0 0 100%; max-width: 600px; margin: 0 auto;">
+            <textarea id="privateKey" placeholder="Enter your private key" rows="4"></textarea>
+            <input type="password" id="encryptPassword" placeholder="Enter a strong password">
+            <p id="passwordStrength" class="password-strength"></p>
+            <button onclick="encryptPrivateKey()">Encrypt</button>
+            <p id="encryptStatus" class="status"></p>
+            <textarea id="encryptedOutput" readonly rows="4" placeholder="Encrypted payload will appear here"></textarea>
+            <div id="qrcode"></div>
+            <button class="copy-btn" onclick="copyToClipboard('encryptedOutput')">Copy Encrypted Payload</button>
+            <button class="download-btn" onclick="downloadQRCode()">Download QR Code</button>
+        </div>
+    </div>
+    <div style="text-align: center; margin-top: 20px;">
+        <a href="index.html">Back to Home</a> | <a href="decrypt.html">Go to Decrypt</a>
+    </div>
+</body>
+</html>
