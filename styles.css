@@ -91,10 +91,6 @@ button:hover:not(:disabled) {
 .password-strong { background: #f1f8e9; color: #33691e; }
 .password-very-strong { background: #e8f5e9; color: #1b5e20; }
 
-.clear-btn {
-    background: #6c757d;
-    margin-bottom: 10px;
-}
 
 .loading {
     display: inline-block;

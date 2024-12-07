@@ -47,17 +47,14 @@ function copyToClipboard(elementId) {
     setTimeout(() => msg.remove(), 2000);
 }
 
-function clearInput(elementId) {
-    const element = document.getElementById(elementId);
-    element.value = '';
-    if (elementId === 'encryptPassword') {
-        updatePasswordStrength();
-    }
-}
 
 function encryptPrivateKey() {
     const privateKey = document.getElementById("privateKey").value.trim();
     const password = document.getElementById("encryptPassword").value.trim();
+    const output = document.getElementById("encryptedOutput");
+    
+    // Clear previous output
+    output.value = '';
     const status = document.getElementById("encryptStatus");
     const output = document.getElementById("encryptedOutput");
     const qrContainer = document.getElementById("qrcode");
@@ -109,6 +106,10 @@ function downloadQRCode() {
 function decryptPrivateKey() {
     const encryptedPayload = document.getElementById("encryptedPayload").value.trim();
     const password = document.getElementById("decryptPassword").value.trim();
+    const output = document.getElementById("decryptedOutput");
+    
+    // Clear previous output
+    output.value = '';
     const status = document.getElementById("decryptStatus");
     const output = document.getElementById("decryptedOutput");
     if (!encryptedPayload || !password) {
@@ -173,11 +174,23 @@ function scanQRCode() {
 
 // Set up event listeners when the document is ready
 document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('encryptPassword').addEventListener('input', updatePasswordStrength);
+    document.getElementById('encryptPassword')?.addEventListener('input', updatePasswordStrength);
     
     // Check for payload parameter
     const payload = getUrlParameter('payload');
-    if (payload) {
+    if (payload && document.getElementById('encryptedPayload')) {
         document.getElementById('encryptedPayload').value = payload;
+    }
+
+    // Update "Go to Decrypt" link with payload
+    const goToDecryptLink = document.getElementById('goToDecrypt');
+    const encryptedOutput = document.getElementById('encryptedOutput');
+    if (goToDecryptLink && encryptedOutput) {
+        setInterval(() => {
+            const payload = encryptedOutput.value.trim();
+            goToDecryptLink.href = payload ? 
+                `decrypt.html?payload=${encodeURIComponent(payload)}` : 
+                'decrypt.html';
+        }, 1000);
     }
 });
