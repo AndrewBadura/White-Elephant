@@ -51,12 +51,11 @@ function copyToClipboard(elementId) {
 function encryptPrivateKey() {
     const privateKey = document.getElementById("privateKey").value.trim();
     const password = document.getElementById("encryptPassword").value.trim();
+    const status = document.getElementById("encryptStatus");
     const output = document.getElementById("encryptedOutput");
     
     // Clear previous output
     output.value = '';
-    const status = document.getElementById("encryptStatus");
-    const output = document.getElementById("encryptedOutput");
     const qrContainer = document.getElementById("qrcode");
     if (!privateKey || !password) {
         status.textContent = "Private key and password are required.";
@@ -106,12 +105,11 @@ function downloadQRCode() {
 function decryptPrivateKey() {
     const encryptedPayload = document.getElementById("encryptedPayload").value.trim();
     const password = document.getElementById("decryptPassword").value.trim();
+    const status = document.getElementById("decryptStatus");
     const output = document.getElementById("decryptedOutput");
     
     // Clear previous output
     output.value = '';
-    const status = document.getElementById("decryptStatus");
-    const output = document.getElementById("decryptedOutput");
     if (!encryptedPayload || !password) {
         status.textContent = "Encrypted payload and password are required.";
         status.className = "status error";
