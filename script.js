@@ -185,12 +185,16 @@ function scanQRCode() {
 
 // Set up event listeners when the document is ready
 document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('encryptPassword')?.addEventListener('input', updatePasswordStrength);
+    const passwordInput = document.getElementById('encryptPassword');
+    if (passwordInput) {
+        passwordInput.addEventListener('input', updatePasswordStrength);
+        // Initial check in case there's a pre-filled value
+        updatePasswordStrength();
+    }
     
     // Check for payload parameter
     const payload = getUrlParameter('payload');
     if (payload && document.getElementById('encryptedPayload')) {
         document.getElementById('encryptedPayload').value = payload;
     }
-
 });
