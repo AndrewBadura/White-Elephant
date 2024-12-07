@@ -141,6 +141,13 @@
             <button onclick="scanQRCode()">Scan QR Code</button>
         </div>
     </div>
+    <div style="text-align: center; margin-top: 20px; padding: 20px; border-top: 1px solid #ccc;">
+        <h2>Share This App</h2>
+        <p>Generate a QR code that contains the entire application</p>
+        <div id="appQRCode" style="margin: 20px auto;"></div>
+        <button onclick="generateAppQR()" style="max-width: 300px; margin: 0 auto;">Generate App QR Code</button>
+        <button onclick="downloadAppQR()" style="max-width: 300px; margin: 10px auto 0; background: #28a745;" id="downloadAppQR" disabled>Download App QR Code</button>
+    </div>
     <script>
         document.getElementById('encryptPassword').addEventListener('input', updatePasswordStrength);
 
@@ -289,6 +296,39 @@
                     console.error("Camera access error:", err);
                     reader.innerHTML = '<p style="color: red;">Unable to access camera. Please ensure camera permissions are granted and you\'re using HTTPS or localhost.</p>';
                 });
+        }
+
+        function generateAppQR() {
+            const currentContent = document.documentElement.outerHTML;
+            const dataUri = 'data:text/html;charset=utf-8,' + encodeURIComponent(currentContent);
+            
+            // Clear previous QR code
+            const qrContainer = document.getElementById("appQRCode");
+            qrContainer.innerHTML = "";
+            
+            // Generate new QR code
+            new QRCode(qrContainer, {
+                text: dataUri,
+                width: 256,
+                height: 256
+            });
+
+            // Enable download button
+            document.getElementById("downloadAppQR").disabled = false;
+        }
+
+        function downloadAppQR() {
+            const qrImage = document.querySelector("#appQRCode img");
+            if (!qrImage) {
+                alert('Please generate the QR code first');
+                return;
+            }
+            const link = document.createElement('a');
+            link.href = qrImage.src;
+            link.download = 'secure_key_operations_app.png';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         }
     </script>
 </body>
