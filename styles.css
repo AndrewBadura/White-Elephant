@@ -1,0 +1,84 @@
+/* Basic styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.wrapper {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.panel {
+    flex: 0 0 48%;
+    box-sizing: border-box;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: #fff;
+    margin-bottom: 20px;
+}
+
+textarea,
+input {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    box-sizing: border-box;
+    padding-right: 15px;
+}
+
+button {
+    background: #007bff;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    width: 100%;
+}
+
+button:hover:not(:disabled) {
+    background: #0056b3;
+}
+
+.copy-btn,
+.download-btn {
+    margin-top: 10px;
+    background: #28a745;
+}
+
+.status {
+    color: green;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.status.error {
+    color: red;
+}
+
+#qrcode,
+#reader {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.password-strength {
+    font-size: 12px;
+    margin-top: -10px;
+    margin-bottom: 10px;
+}
