@@ -5,16 +5,23 @@ function getUrlParameter(name) {
 }
 
 function updatePasswordStrength() {
-    const strengthText = document.getElementById('passwordStrength');
+    const strengthElement = document.getElementById('passwordStrength');
     const password = document.getElementById('encryptPassword').value;
+    
+    if (!password) {
+        strengthElement.style.display = 'none';
+        return;
+    }
+    
     const strength = calculatePasswordStrength(password);
     
     // Remove all previous classes
-    strengthText.className = 'password-strength';
+    strengthElement.className = 'password-strength';
     
     // Add appropriate class based on strength
-    strengthText.classList.add(`password-${strength.toLowerCase().replace(' ', '-')}`);
-    strengthText.textContent = `Password Strength: ${strength}`;
+    strengthElement.classList.add(`password-${strength.toLowerCase().replace(' ', '-')}`);
+    strengthElement.textContent = `Password Strength: ${strength}`;
+    strengthElement.style.display = 'block';
 }
 
 function calculatePasswordStrength(password) {
