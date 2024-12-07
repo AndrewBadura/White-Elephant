@@ -81,6 +81,12 @@ function encryptPrivateKey() {
             width: 128,
             height: 128,
         });
+
+        // Update decrypt link with encrypted payload
+        const goToDecryptLink = document.getElementById('goToDecrypt');
+        if (goToDecryptLink) {
+            goToDecryptLink.href = `decrypt.html?payload=${encodeURIComponent(payload)}`;
+        }
     } catch (error) {
         status.textContent = "Error during encryption: " + error.message;
         status.className = "status error";
@@ -180,15 +186,4 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('encryptedPayload').value = payload;
     }
 
-    // Update "Go to Decrypt" link with payload
-    const goToDecryptLink = document.getElementById('goToDecrypt');
-    const encryptedOutput = document.getElementById('encryptedOutput');
-    if (goToDecryptLink && encryptedOutput) {
-        setInterval(() => {
-            const payload = encryptedOutput.value.trim();
-            goToDecryptLink.href = payload ? 
-                `decrypt.html?payload=${encodeURIComponent(payload)}` : 
-                'decrypt.html';
-        }, 1000);
-    }
 });
