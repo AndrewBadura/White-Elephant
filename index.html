@@ -99,6 +99,21 @@
 </head>
 
 <body>
+    <script>
+        // Function to get URL parameters
+        function getUrlParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        // Function to populate encrypted payload from URL parameter
+        window.onload = function() {
+            const payload = getUrlParameter('payload');
+            if (payload) {
+                document.getElementById('encryptedPayload').value = payload;
+            }
+        };
+    </script>
     <h1>Secure Private Key Operations</h1>
     <div class="wrapper">
         <div class="panel">
