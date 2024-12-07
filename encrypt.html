@@ -35,7 +35,9 @@
     <div class="wrapper">
         <div class="panel" style="flex: 0 0 100%; max-width: 600px; margin: 0 auto;">
             <textarea id="privateKey" placeholder="Enter your private key" rows="4"></textarea>
+            <button class="clear-btn" onclick="clearInput('privateKey')">Clear Private Key</button>
             <input type="password" id="encryptPassword" placeholder="Enter a strong password">
+            <button class="clear-btn" onclick="clearInput('encryptPassword')">Clear Password</button>
             <p id="passwordStrength" class="password-strength"></p>
             <button onclick="encryptPrivateKey()">Encrypt</button>
             <p id="encryptStatus" class="status"></p>

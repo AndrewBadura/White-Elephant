@@ -81,4 +81,46 @@ button:hover:not(:disabled) {
     font-size: 12px;
     margin-top: -10px;
     margin-bottom: 10px;
+    padding: 3px 8px;
+    border-radius: 3px;
+    display: inline-block;
+}
+
+.password-weak { background: #ffebee; color: #c62828; }
+.password-moderate { background: #fff3e0; color: #ef6c00; }
+.password-strong { background: #f1f8e9; color: #33691e; }
+.password-very-strong { background: #e8f5e9; color: #1b5e20; }
+
+.clear-btn {
+    background: #6c757d;
+    margin-bottom: 10px;
+}
+
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 3px solid #007bff;
+    animation: spin 1s linear infinite;
+    margin-left: 10px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.copy-success {
+    animation: fadeOut 2s forwards;
+    color: #28a745;
+    font-size: 12px;
+    margin-left: 10px;
+}
+
+@keyframes fadeOut {
+    0% { opacity: 1; }
+    70% { opacity: 1; }
+    100% { opacity: 0; }
 }

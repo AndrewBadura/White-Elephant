@@ -8,6 +8,12 @@ function updatePasswordStrength() {
     const strengthText = document.getElementById('passwordStrength');
     const password = document.getElementById('encryptPassword').value;
     const strength = calculatePasswordStrength(password);
+    
+    // Remove all previous classes
+    strengthText.className = 'password-strength';
+    
+    // Add appropriate class based on strength
+    strengthText.classList.add(`password-${strength.toLowerCase().replace(' ', '-')}`);
     strengthText.textContent = `Password Strength: ${strength}`;
 }
 
@@ -30,7 +36,23 @@ function copyToClipboard(elementId) {
     const textarea = document.getElementById(elementId);
     textarea.select();
     document.execCommand('copy');
-    alert('Ciphertext copied to clipboard!');
+    
+    // Create success message
+    const msg = document.createElement('span');
+    msg.textContent = 'Copied!';
+    msg.className = 'copy-success';
+    textarea.parentNode.appendChild(msg);
+    
+    // Remove message after animation
+    setTimeout(() => msg.remove(), 2000);
+}
+
+function clearInput(elementId) {
+    const element = document.getElementById(elementId);
+    element.value = '';
+    if (elementId === 'encryptPassword') {
+        updatePasswordStrength();
+    }
 }
 
 function encryptPrivateKey() {

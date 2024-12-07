@@ -45,7 +45,9 @@
             <button onclick="scanQRCode()">Scan QR Code</button>
             <div id="reader"></div>
             <textarea id="encryptedPayload" placeholder="Paste your encrypted payload here" rows="4"></textarea>
+            <button class="clear-btn" onclick="clearInput('encryptedPayload')">Clear Payload</button>
             <input type="password" id="decryptPassword" placeholder="Enter your password">
+            <button class="clear-btn" onclick="clearInput('decryptPassword')">Clear Password</button>
             <button onclick="decryptPrivateKey()">Decrypt</button>
             <p id="decryptStatus" class="status"></p>
             <textarea id="decryptedOutput" readonly rows="4" placeholder="Decrypted private key will appear here"></textarea>
