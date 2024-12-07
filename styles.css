@@ -77,39 +77,6 @@ button:hover:not(:disabled) {
     margin: 20px 0;
 }
 
-.password-strength {
-    font-size: 12px;
-    margin: -5px 0 10px 0;
-    padding: 5px 10px;
-    border-radius: 3px;
-    text-align: left;
-    transition: all 0.3s ease;
-}
-
-.password-weak { 
-    background: #ffebee; 
-    color: #c62828; 
-    display: inline-block;
-    border: 1px solid #ffcdd2;
-}
-.password-moderate { 
-    background: #fff3e0; 
-    color: #ef6c00;
-    display: inline-block;
-    border: 1px solid #ffe0b2;
-}
-.password-strong { 
-    background: #f1f8e9; 
-    color: #33691e;
-    display: inline-block;
-    border: 1px solid #dcedc8;
-}
-.password-very-strong { 
-    background: #e8f5e9; 
-    color: #1b5e20;
-    display: inline-block;
-    border: 1px solid #c8e6c9;
-}
 
 
 .loading {

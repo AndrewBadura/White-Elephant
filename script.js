@@ -4,40 +4,6 @@ function getUrlParameter(name) {
     return urlParams.get(name);
 }
 
-function updatePasswordStrength() {
-    const strengthElement = document.getElementById('passwordStrength');
-    const password = document.getElementById('encryptPassword').value;
-    
-    if (!password) {
-        strengthElement.style.display = 'none';
-        return;
-    }
-    
-    const strength = calculatePasswordStrength(password);
-    
-    // Remove all previous classes
-    strengthElement.className = 'password-strength';
-    
-    // Add appropriate class based on strength
-    strengthElement.classList.add(`password-${strength.toLowerCase().replace(' ', '-')}`);
-    strengthElement.textContent = `Password Strength: ${strength}`;
-    strengthElement.style.display = 'block';
-}
-
-function calculatePasswordStrength(password) {
-    let score = 0;
-    if (password.length >= 8) score++;
-    if (/[A-Z]/.test(password)) score++;
-    if (/[0-9]/.test(password)) score++;
-    if (/[!@#\$%\^&\*\(\)_\+\-=\[\]\{\};':"\\|,.<>\/?]+/.test(password)) score++;
-    switch (score) {
-        case 0:
-        case 1: return "Weak";
-        case 2: return "Moderate";
-        case 3: return "Strong";
-        case 4: return "Very Strong";
-    }
-}
 
 function copyToClipboard(elementId) {
     const textarea = document.getElementById(elementId);
@@ -185,13 +151,6 @@ function scanQRCode() {
 
 // Set up event listeners when the document is ready
 document.addEventListener('DOMContentLoaded', function() {
-    const passwordInput = document.getElementById('encryptPassword');
-    if (passwordInput) {
-        passwordInput.addEventListener('input', updatePasswordStrength);
-        // Initial check in case there's a pre-filled value
-        updatePasswordStrength();
-    }
-    
     // Check for payload parameter
     const payload = getUrlParameter('payload');
     if (payload && document.getElementById('encryptedPayload')) {
