@@ -253,20 +253,41 @@
         }
 
         function scanQRCode() {
+            const reader = document.getElementById("reader");
+            reader.innerHTML = ''; // Clear previous content
+            
+            // Check if the device has a camera
+            if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+                reader.innerHTML = '<p style="color: red;">Camera access is not available on this device. Please use a mobile device with a camera to scan QR codes.</p>';
+                return;
+            }
+
             const html5QrCode = new Html5Qrcode("reader");
-            html5QrCode.start(
-                { facingMode: "environment" },
-                {
-                    fps: 10, // frames per second
-                    qrbox: { width: 250, height: 250 }
-                },
-                qrCodeMessage => {
-                    document.getElementById("encryptedPayload").value = qrCodeMessage;
-                    html5QrCode.stop();
-                    alert("QR code scanned successfully!");
+            
+            // First check if we can access the camera
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(() => {
+                    html5QrCode.start(
+                        { facingMode: "environment" },
+                        {
+                            fps: 10,
+                            qrbox: { width: 250, height: 250 }
+                        },
+                        qrCodeMessage => {
+                            document.getElementById("encryptedPayload").value = qrCodeMessage;
+                            html5QrCode.stop();
+                            reader.innerHTML = '<p style="color: green;">QR code scanned successfully!</p>';
+                        },
+                        () => {} // Empty error handler as we don't need to show scanning errors
+                    )
+                    .catch(err => {
+                        console.error("QR Code scanner error:", err);
+                        reader.innerHTML = '<p style="color: red;">Error starting QR code scanner. Please ensure camera permissions are granted.</p>';
+                    });
                 })
                 .catch(err => {
-                    console.error("Unable to start the QR Code scanner.", err);
+                    console.error("Camera access error:", err);
+                    reader.innerHTML = '<p style="color: red;">Unable to access camera. Please ensure camera permissions are granted and you\'re using HTTPS or localhost.</p>';
                 });
         }
     </script>
