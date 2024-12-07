@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate App QR Code</title>
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #qrcode {
+            margin: 20px;
+        }
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Secure Private Key Operations - QR Code Generator</h1>
+    <div id="qrcode"></div>
+    <button onclick="downloadQRCode()">Download QR Code</button>
+
+    <script>
+        // The entire index.html content as a data URI
+        const htmlContent = `<!DOCTYPE html>
+${document.querySelector('html').outerHTML}`;
+
+        // Create data URI
+        const dataUri = 'data:text/html;charset=utf-8,' + encodeURIComponent(htmlContent);
+
+        // Generate QR code
+        new QRCode(document.getElementById("qrcode"), {
+            text: dataUri,
+            width: 512,
+            height: 512
+        });
+
+        function downloadQRCode() {
+            const qrImage = document.querySelector("#qrcode img");
+            const link = document.createElement('a');
+            link.href = qrImage.src;
+            link.download = 'secure_key_operations_app.png';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    </script>
+</body>
+</html>
