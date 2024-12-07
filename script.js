@@ -148,57 +148,6 @@ function scanQRCode() {
         });
 }
 
-function generateAppQR() {
-    try {
-        const currentContent = document.documentElement.outerHTML;
-        const dataUri = 'data:text/html;charset=utf-8,' + encodeURIComponent(currentContent);
-        
-        const qrContainer = document.getElementById("appQRCode");
-        qrContainer.innerHTML = "";
-        
-        const statusMsg = document.createElement('div');
-        statusMsg.style.marginBottom = '10px';
-        qrContainer.appendChild(statusMsg);
-
-        const dataSize = dataUri.length;
-        if (dataSize > 2953) {
-            throw new Error(`Data size (${dataSize} bytes) exceeds QR code capacity (2953 bytes).`);
-        }
-
-        new QRCode(qrContainer, {
-            text: dataUri,
-            width: 256,
-            height: 256,
-            correctLevel: QRCode.CorrectLevel.L
-        });
-
-        statusMsg.textContent = 'QR Code generated successfully!';
-        statusMsg.style.color = 'green';
-
-        document.getElementById("downloadAppQR").disabled = false;
-    } catch (error) {
-        const qrContainer = document.getElementById("appQRCode");
-        qrContainer.innerHTML = `<div style="color: red; margin: 20px;">
-            Error generating QR code: ${error.message}<br>
-            The application is too large to encode in a single QR code.
-            </div>`;
-        document.getElementById("downloadAppQR").disabled = true;
-    }
-}
-
-function downloadAppQR() {
-    const qrImage = document.querySelector("#appQRCode img");
-    if (!qrImage) {
-        alert('Please generate the QR code first');
-        return;
-    }
-    const link = document.createElement('a');
-    link.href = qrImage.src;
-    link.download = 'secure_key_operations_app.png';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-}
 
 // Set up event listeners when the document is ready
 document.addEventListener('DOMContentLoaded', function() {

@@ -78,22 +78,15 @@
         </div>
         <div class="panel">
             <h2>Decrypt Private Key</h2>
+            <button onclick="scanQRCode()">Scan QR Code</button>
+            <div id="reader"></div>
             <textarea id="encryptedPayload" placeholder="Paste your encrypted payload here" rows="4"></textarea>
             <input type="password" id="decryptPassword" placeholder="Enter your password">
             <button onclick="decryptPrivateKey()">Decrypt</button>
             <p id="decryptStatus" class="status"></p>
             <textarea id="decryptedOutput" readonly rows="4"
                 placeholder="Decrypted private key will appear here"></textarea>
-            <div id="reader"></div>
-            <button onclick="scanQRCode()">Scan QR Code</button>
         </div>
-    </div>
-    <div style="text-align: center; margin-top: 20px; padding: 20px; border-top: 1px solid #ccc;">
-        <h2>Share This App</h2>
-        <p>Generate a QR code that contains the entire application</p>
-        <div id="appQRCode" style="margin: 20px auto; min-height: 256px;"></div>
-        <button onclick="generateAppQR()" style="max-width: 300px; margin: 0 auto;">Generate App QR Code</button>
-        <button onclick="downloadAppQR()" style="max-width: 300px; margin: 10px auto 0; background: #28a745;" id="downloadAppQR" disabled>Download App QR Code</button>
     </div>
     <script>
         document.getElementById('encryptPassword').addEventListener('input', updatePasswordStrength);
