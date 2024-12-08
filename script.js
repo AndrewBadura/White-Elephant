@@ -22,11 +22,22 @@ function copyToClipboard(elementId) {
 
 
 function encryptPrivateKey() {
-    const privateKey = document.getElementById("privateKey").value.trim();
+    if (!rateLimiter.checkLimit('encrypt')) {
+        alert('Too many encryption attempts. Please try again later.');
+        return;
+    }
+
+    const privateKey = sanitizeInput(document.getElementById("privateKey").value.trim());
     const password = document.getElementById("encryptPassword").value.trim();
     const confirmPassword = document.getElementById("confirmEncryptPassword").value.trim();
     const status = document.getElementById("encryptStatus");
     const output = document.getElementById("encryptedOutput");
+
+    if (!validatePassword(password)) {
+        status.textContent = "Password must be at least 8 characters long";
+        status.className = "status error";
+        return;
+    }
     
     // Clear previous output
     output.value = '';
