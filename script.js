@@ -89,12 +89,6 @@ function encryptPrivateKey() {
         return;
     }
 
-    if (!isPasswordComplex(password)) {
-        status.textContent = "Password must be at least 12 characters long and contain uppercase, lowercase, numbers, and special characters.";
-        status.className = "status error";
-        return;
-    }
-
     if (password !== confirmPassword) {
         status.textContent = "Passwords do not match.";
         status.className = "status error";
