@@ -219,11 +219,19 @@ document.addEventListener('DOMContentLoaded', function() {
     // Check for payload parameter
     const payload = getUrlParameter('payload');
     const encryptedPayloadTextarea = document.getElementById('encryptedPayload');
+    const decryptForm = document.getElementById('decryptForm');
     
     if (payload && encryptedPayloadTextarea) {
         encryptedPayloadTextarea.value = payload;
-        encryptedPayloadTextarea.style.display = 'none'; // Hide the textarea
+        // Hide the textarea and adjust form spacing
+        encryptedPayloadTextarea.style.display = 'none';
+        if (decryptForm) {
+            decryptForm.style.marginTop = '20px';
+        }
     } else if (encryptedPayloadTextarea) {
-        encryptedPayloadTextarea.style.display = 'block'; // Show the textarea
+        encryptedPayloadTextarea.style.display = 'block';
+        if (decryptForm) {
+            decryptForm.style.marginTop = '0';
+        }
     }
 });
