@@ -73,7 +73,8 @@ function encryptPrivateKey() {
         // Update decrypt link with encrypted payload
         const goToDecryptLink = document.getElementById('goToDecrypt');
         if (goToDecryptLink) {
-            goToDecryptLink.href = `decrypt.html?payload=${encodeURIComponent(payload)}`;
+            const encodedPayload = encodeURIComponent(payload).replace(/'/g, '%27');
+            goToDecryptLink.href = `decrypt.html?payload=${encodedPayload}`;
         }
     } catch (error) {
         status.textContent = "Error during encryption: " + error.message;
@@ -221,17 +222,20 @@ document.addEventListener('DOMContentLoaded', function() {
     const encryptedPayloadTextarea = document.getElementById('encryptedPayload');
     const decryptForm = document.getElementById('decryptForm');
     
-    if (payload && encryptedPayloadTextarea) {
-        encryptedPayloadTextarea.value = payload;
-        // Hide the textarea and adjust form spacing
-        encryptedPayloadTextarea.style.display = 'none';
-        if (decryptForm) {
-            decryptForm.style.marginTop = '20px';
-        }
-    } else if (encryptedPayloadTextarea) {
-        encryptedPayloadTextarea.style.display = 'block';
-        if (decryptForm) {
-            decryptForm.style.marginTop = '0';
+    if (encryptedPayloadTextarea) {
+        if (payload) {
+            // If we have a payload, hide the textarea and set its value
+            encryptedPayloadTextarea.value = decodeURIComponent(payload);
+            encryptedPayloadTextarea.style.display = 'none';
+            if (decryptForm) {
+                decryptForm.style.marginTop = '20px';
+            }
+        } else {
+            // No payload, show the textarea
+            encryptedPayloadTextarea.style.display = 'block';
+            if (decryptForm) {
+                decryptForm.style.marginTop = '0';
+            }
         }
     }
 });
