@@ -15,6 +15,7 @@
                 'https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js',
                 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js',
                 'https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js',
+                'https://unpkg.com/qrcodejs@1.0.0/qrcode.min.js',
                 'security.js',
                 'script.js'
             ];
@@ -56,13 +57,13 @@
             </form>
             <p id="decryptStatus" class="status"></p>
             <textarea id="decryptedOutput" readonly rows="4" placeholder="Decrypted private key will appear here"></textarea>
-            <div id="decryptRecoveryKeyOption" style="display: none; margin: 10px 0;">
-                <label>
+            <div id="decryptRecoveryKeyOption" style="display: none; margin: 10px 0; text-align: center;">
+                <label style="display: inline-flex; align-items: center; gap: 5px;">
                     <input type="checkbox" id="decryptRecoveryKeyCheckbox" onchange="handleDecryptRecoveryKeyChange()">
-                    Recovery Key?
+                    <span>Recovery Key?</span>
                 </label>
             </div>
-            <div id="decryptQrcode"></div>
+            <div id="decryptQrcode" style="display: flex; justify-content: center; margin: 10px 0;"></div>
         </div>
     </div>
     <div style="text-align: center; margin-top: 20px;">
