@@ -218,7 +218,12 @@ function scanQRCode() {
 document.addEventListener('DOMContentLoaded', function() {
     // Check for payload parameter
     const payload = getUrlParameter('payload');
-    if (payload && document.getElementById('encryptedPayload')) {
-        document.getElementById('encryptedPayload').value = payload;
+    const encryptedPayloadTextarea = document.getElementById('encryptedPayload');
+    
+    if (payload && encryptedPayloadTextarea) {
+        encryptedPayloadTextarea.value = payload;
+        encryptedPayloadTextarea.style.display = 'none'; // Hide the textarea
+    } else if (encryptedPayloadTextarea) {
+        encryptedPayloadTextarea.style.display = 'block'; // Show the textarea
     }
 });
