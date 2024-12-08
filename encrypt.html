@@ -37,6 +37,7 @@
             <form id="encryptForm" onsubmit="event.preventDefault(); encryptPrivateKey();">
                 <textarea id="privateKey" placeholder="Enter your private key" rows="4"></textarea>
                 <input type="password" id="encryptPassword" placeholder="Enter password" autocomplete="new-password">
+                <input type="password" id="confirmPassword" placeholder="Confirm password" autocomplete="new-password">
                 <button type="submit">Encrypt</button>
             </form>
             <p id="encryptStatus" class="status"></p>

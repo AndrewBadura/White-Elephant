@@ -24,14 +24,22 @@ function copyToClipboard(elementId) {
 function encryptPrivateKey() {
     const privateKey = document.getElementById("privateKey").value.trim();
     const password = document.getElementById("encryptPassword").value.trim();
+    const confirmPassword = document.getElementById("confirmPassword").value.trim();
     const status = document.getElementById("encryptStatus");
     const output = document.getElementById("encryptedOutput");
     
     // Clear previous output
     output.value = '';
     const qrContainer = document.getElementById("qrcode");
-    if (!privateKey || !password) {
-        status.textContent = "Private key and password are required.";
+    
+    if (!privateKey || !password || !confirmPassword) {
+        status.textContent = "Private key and both password fields are required.";
+        status.className = "status error";
+        return;
+    }
+
+    if (password !== confirmPassword) {
+        status.textContent = "Passwords do not match.";
         status.className = "status error";
         return;
     }
