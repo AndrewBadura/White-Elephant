@@ -66,12 +66,12 @@ function encryptPrivateKey() {
         output.value = payload;
         status.textContent = "Private key encrypted successfully!";
         status.className = "status";
-        qrContainer.innerHTML = "";
-        new QRCode(qrContainer, {
-            text: payload,
-            width: 128,
-            height: 128,
-        });
+        
+        // Show recovery key checkbox after successful encryption
+        document.getElementById('recoveryKeyOption').style.display = 'block';
+        
+        // Generate initial QR code with encrypted payload
+        generateQRCode(payload);
 
         // Update decrypt link with encrypted payload
         const goToDecryptLink = document.getElementById('goToDecrypt');
@@ -82,6 +82,31 @@ function encryptPrivateKey() {
         status.textContent = "Error during encryption: " + error.message;
         status.className = "status error";
     }
+}
+
+function handleRecoveryKeyChange() {
+    const checkbox = document.getElementById('recoveryKeyCheckbox');
+    const output = document.getElementById('encryptedOutput');
+    const decryptedText = output.value;
+    
+    if (checkbox.checked) {
+        // Format as bitcoin wallet recovery string
+        const walletString = `bitcoin-wallet:?seed=${decryptedText.replace(/\s+/g, '+')}&passphrase`;
+        generateQRCode(walletString);
+    } else {
+        // Revert to original encrypted payload
+        generateQRCode(output.value);
+    }
+}
+
+function generateQRCode(text) {
+    const qrContainer = document.getElementById("qrcode");
+    qrContainer.innerHTML = "";
+    new QRCode(qrContainer, {
+        text: text,
+        width: 128,
+        height: 128,
+    });
 }
 
 function downloadQRCode() {

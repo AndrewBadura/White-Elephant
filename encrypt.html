@@ -47,6 +47,12 @@
             </form>
             <p id="encryptStatus" class="status"></p>
             <textarea id="encryptedOutput" readonly rows="4" placeholder="Encrypted payload will appear here"></textarea>
+            <div id="recoveryKeyOption" style="display: none; margin: 10px 0;">
+                <label>
+                    <input type="checkbox" id="recoveryKeyCheckbox" onchange="handleRecoveryKeyChange()">
+                    Recovery Key?
+                </label>
+            </div>
             <div id="qrcode"></div>
             <button class="copy-btn" onclick="copyToClipboard('encryptedOutput')">Copy Encrypted Payload</button>
             <button class="download-btn" onclick="downloadQRCode()">Download QR Code</button>
