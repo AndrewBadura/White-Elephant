@@ -109,6 +109,33 @@ function generateQRCode(text) {
     });
 }
 
+function handleDecryptRecoveryKeyChange() {
+    const checkbox = document.getElementById('decryptRecoveryKeyCheckbox');
+    const output = document.getElementById('decryptedOutput');
+    const decryptedText = output.value;
+    
+    if (checkbox.checked) {
+        // Format as bitcoin wallet recovery string
+        const walletString = `bitcoin-wallet:?seed=${decryptedText.replace(/\s+/g, '+')}&passphrase`;
+        const qrContainer = document.getElementById("decryptQrcode");
+        qrContainer.innerHTML = "";
+        new QRCode(qrContainer, {
+            text: walletString,
+            width: 128,
+            height: 128,
+        });
+    } else {
+        // Revert to original decrypted text
+        const qrContainer = document.getElementById("decryptQrcode");
+        qrContainer.innerHTML = "";
+        new QRCode(qrContainer, {
+            text: decryptedText,
+            width: 128,
+            height: 128,
+        });
+    }
+}
+
 function downloadQRCode() {
     const qrContainer = document.getElementById("qrcode").getElementsByTagName("img")[0];
     if (!qrContainer) {
@@ -148,6 +175,18 @@ function decryptPrivateKey() {
         output.value = privateKey;
         status.textContent = "Private key decrypted successfully!";
         status.className = "status";
+        
+        // Show recovery key checkbox after successful decryption
+        document.getElementById('decryptRecoveryKeyOption').style.display = 'block';
+        
+        // Generate initial QR code with decrypted output
+        const qrContainer = document.getElementById("decryptQrcode");
+        qrContainer.innerHTML = "";
+        new QRCode(qrContainer, {
+            text: privateKey,
+            width: 128,
+            height: 128,
+        });
     } catch (error) {
         status.textContent = "Error during decryption: " + error.message;
         status.className = "status error";

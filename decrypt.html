@@ -56,6 +56,13 @@
             </form>
             <p id="decryptStatus" class="status"></p>
             <textarea id="decryptedOutput" readonly rows="4" placeholder="Decrypted private key will appear here"></textarea>
+            <div id="decryptRecoveryKeyOption" style="display: none; margin: 10px 0;">
+                <label>
+                    <input type="checkbox" id="decryptRecoveryKeyCheckbox" onchange="handleDecryptRecoveryKeyChange()">
+                    Recovery Key?
+                </label>
+            </div>
+            <div id="decryptQrcode"></div>
         </div>
     </div>
     <div style="text-align: center; margin-top: 20px;">
