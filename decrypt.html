@@ -3,10 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com https://unpkg.com; style-src 'self' 'unsafe-inline';">
-    <meta http-equiv="X-Content-Type-Options" content="nosniff">
-    <meta http-equiv="X-Frame-Options" content="DENY">
-    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
     <title>Decrypt Private Key</title>
     <link rel="stylesheet" href="styles.css">
     <script>
@@ -50,7 +46,7 @@
             <div id="reader"></div>
             <form id="decryptForm" onsubmit="event.preventDefault(); decryptPrivateKey();">
                 <textarea id="encryptedPayload" placeholder="Paste your encrypted payload here" rows="4"></textarea>
-                <input type="password" id="decryptPassword" placeholder="Enter your password" autocomplete="current-password">
+                <input type="password" id="decryptPassword" placeholder="Enter your password">
                 <button type="submit">Decrypt</button>
             </form>
             <p id="decryptStatus" class="status"></p>

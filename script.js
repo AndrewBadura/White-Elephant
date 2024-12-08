@@ -21,76 +21,17 @@ function copyToClipboard(elementId) {
 }
 
 
-// Password complexity requirements
-function isPasswordComplex(password) {
-    const minLength = 12;
-    const hasUpperCase = /[A-Z]/.test(password);
-    const hasLowerCase = /[a-z]/.test(password);
-    const hasNumbers = /\d/.test(password);
-    const hasSpecialChar = /[@$!%*?&]/.test(password);
-    
-    return password.length >= minLength && 
-           hasUpperCase && 
-           hasLowerCase && 
-           hasNumbers && 
-           hasSpecialChar;
-}
-
-// Rate limiting
-const attempts = new Map();
-const MAX_ATTEMPTS = 5;
-const LOCKOUT_TIME = 15 * 60 * 1000; // 15 minutes
-
-function checkRateLimit() {
-    const now = Date.now();
-    const clientIP = 'client'; // In a real implementation, you'd get the client's IP
-    
-    if (attempts.has(clientIP)) {
-        const { count, timestamp } = attempts.get(clientIP);
-        if (now - timestamp < LOCKOUT_TIME) {
-            if (count >= MAX_ATTEMPTS) {
-                return false;
-            }
-            attempts.set(clientIP, { count: count + 1, timestamp });
-        } else {
-            attempts.set(clientIP, { count: 1, timestamp: now });
-        }
-    } else {
-        attempts.set(clientIP, { count: 1, timestamp: now });
-    }
-    return true;
-}
-
-function sanitizeInput(input) {
-    return input.replace(/[<>]/g, ''); // Basic XSS prevention
-}
-
 function encryptPrivateKey() {
-    if (!checkRateLimit()) {
-        const status = document.getElementById("encryptStatus");
-        status.textContent = "Too many attempts. Please try again later.";
-        status.className = "status error";
-        return;
-    }
-
-    const privateKey = sanitizeInput(document.getElementById("privateKey").value.trim());
+    const privateKey = document.getElementById("privateKey").value.trim();
     const password = document.getElementById("encryptPassword").value.trim();
-    const confirmPassword = document.getElementById("confirmPassword").value.trim();
     const status = document.getElementById("encryptStatus");
     const output = document.getElementById("encryptedOutput");
     
     // Clear previous output
     output.value = '';
     const qrContainer = document.getElementById("qrcode");
-    
-    if (!privateKey || !password || !confirmPassword) {
-        status.textContent = "Private key and both password fields are required.";
-        status.className = "status error";
-        return;
-    }
-
-    if (password !== confirmPassword) {
-        status.textContent = "Passwords do not match.";
+    if (!privateKey || !password) {
+        status.textContent = "Private key and password are required.";
         status.className = "status error";
         return;
     }
@@ -141,14 +82,7 @@ function downloadQRCode() {
 }
 
 function decryptPrivateKey() {
-    if (!checkRateLimit()) {
-        const status = document.getElementById("decryptStatus");
-        status.textContent = "Too many attempts. Please try again later.";
-        status.className = "status error";
-        return;
-    }
-
-    const encryptedPayload = sanitizeInput(document.getElementById("encryptedPayload").value.trim());
+    const encryptedPayload = document.getElementById("encryptedPayload").value.trim();
     const password = document.getElementById("decryptPassword").value.trim();
     const status = document.getElementById("decryptStatus");
     const output = document.getElementById("decryptedOutput");
