@@ -27,6 +27,20 @@
 
         window.addEventListener('load', function() {
             setInterval(createSnowflake, 300);
+            
+            // Check for payload parameter immediately
+            const urlParams = new URLSearchParams(window.location.search);
+            const payload = urlParams.get('payload');
+            const textarea = document.getElementById('encryptedPayload');
+            const form = document.getElementById('decryptForm');
+            
+            if (payload && textarea) {
+                textarea.value = decodeURIComponent(payload);
+                textarea.style.display = 'none';
+                if (form) form.style.marginTop = '20px';
+            }
+
+            // Load other resources
             var libraries = [
                 'https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js',
                 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js',
@@ -47,15 +61,7 @@
             }
 
             Promise.all(libraries.map(loadScript))
-                .then(() => {
-                    console.log('All resources loaded');
-                    if (typeof getUrlParameter === 'function') {
-                        const payload = getUrlParameter('payload');
-                        if (payload) {
-                            document.getElementById('encryptedPayload').value = payload;
-                        }
-                    }
-                })
+                .then(() => console.log('All resources loaded'))
                 .catch(error => console.error('Error loading resources:', error));
         });
     </script>

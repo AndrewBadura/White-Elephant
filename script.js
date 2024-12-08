@@ -215,27 +215,3 @@ function scanQRCode() {
 }
 
 
-// Set up event listeners when the document is ready
-document.addEventListener('DOMContentLoaded', function() {
-    // Check for payload parameter
-    const payload = getUrlParameter('payload');
-    const encryptedPayloadTextarea = document.getElementById('encryptedPayload');
-    const decryptForm = document.getElementById('decryptForm');
-    
-    if (encryptedPayloadTextarea) {
-        if (payload) {
-            // If we have a payload, hide the textarea and set its value
-            encryptedPayloadTextarea.value = decodeURIComponent(payload);
-            encryptedPayloadTextarea.style.display = 'none';
-            if (decryptForm) {
-                decryptForm.style.marginTop = '20px';
-            }
-        } else {
-            // No payload, show the textarea
-            encryptedPayloadTextarea.style.display = 'block';
-            if (decryptForm) {
-                decryptForm.style.marginTop = '0';
-            }
-        }
-    }
-});
