@@ -83,9 +83,9 @@
             <p id="decryptStatus" class="status"></p>
             <textarea id="decryptedOutput" readonly rows="4" placeholder="Decrypted private key will appear here"></textarea>
             <div id="decryptRecoveryKeyOption" style="display: none; margin: 10px 0; text-align: left; padding-left: 3px;">
-                <label style="display: inline-flex; align-items: center; white-space: nowrap;">
-                    <span style="margin-right: 5px;">Recovery Key?    </span>
-                    <input type="checkbox" id="decryptRecoveryKeyCheckbox" onchange="handleDecryptRecoveryKeyChange()">
+                <label style="display: inline-flex; align-items: center; white-space: nowrap; line-height: 1;">
+                    <span style="margin-right: 5px;">Recovery Key?</span>
+                    <input type="checkbox" id="decryptRecoveryKeyCheckbox" onchange="handleDecryptRecoveryKeyChange()" style="margin: 0;">
                 </label>
             </div>
             <div id="decryptQrcode" style="display: flex; justify-content: center; margin: 10px 0;"></div>
