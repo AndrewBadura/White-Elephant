@@ -32,11 +32,13 @@
             const urlParams = new URLSearchParams(window.location.search);
             const payload = urlParams.get('payload');
             const textarea = document.getElementById('encryptedPayload');
+            const scanQRCode = document.getElementById('ScanQRCode');
             const form = document.getElementById('decryptForm');
             
             if (payload && textarea) {
                 textarea.value = decodeURIComponent(payload);
                 textarea.style.display = 'none';
+                scanQRCode.style.display = 'none';
                 if (form) form.style.marginTop = '20px';
             }
 
@@ -71,7 +73,7 @@
     <p style="text-align: center; font-size: 0.9em; margin-top: -10px;"><i>Unwrap the present...</i></p>
     <div class="wrapper">
         <div class="panel" style="flex: 0 0 100%; max-width: 600px; margin: 0 auto;">
-            <button onclick="scanQRCode()">Scan QR Code</button>
+            <button id="scanQRCode" onclick="scanQRCode()">Scan QR Code</button>
             <div id="reader"></div>
             <form id="decryptForm" onsubmit="event.preventDefault(); decryptPrivateKey();">
                 <textarea id="encryptedPayload" placeholder="Paste your encrypted payload here" rows="4"></textarea>
