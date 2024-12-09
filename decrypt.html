@@ -38,7 +38,7 @@
             if (payload && textarea) {
                 textarea.value = decodeURIComponent(payload);
                 textarea.style.display = 'none';
-                scanQRCode.style.display = 'none';
+                scanQRCode.style.hidden = 'true';
                 if (form) form.style.marginTop = '20px';
             }
 
