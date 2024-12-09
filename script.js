@@ -1,4 +1,8 @@
-// Function to get URL parameters
+/**
+ * Core functionality for the White Elephant encryption/decryption application
+ */
+
+// URL parameter handling
 function getUrlParameter(name) {
     const urlParams = new URLSearchParams(window.location.search);
     return urlParams.get(name);
