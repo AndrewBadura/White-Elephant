@@ -13,10 +13,6 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Set lowercase variables
-      id: vars
-      run: echo "::set-output name=lower_repo::${GITHUB_REPOSITORY,,}"
-
     - name: Log in to GHCR
       uses: docker/login-action@v2
       with:
@@ -28,4 +24,4 @@ jobs:
       uses: docker/build-push-action@v4
       with:
         push: true
-        tags: ghcr.io/${{ steps.vars.outputs.lower_repo }}:latest
+        tags: ghcr.io/andrewbadura/white-elephant:latest
