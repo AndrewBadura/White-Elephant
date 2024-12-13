@@ -50,7 +50,10 @@
             }
 
             Promise.all(libraries.map(loadScript))
-                .then(() => console.log('All resources loaded'))
+                .then(() => {
+                    console.log('All resources loaded');
+                    initAutoResizeTextareas();
+                })
                 .catch(error => console.error('Error loading resources:', error));
         });
     </script>
@@ -63,12 +66,12 @@
             <button id="scanQRCode" onclick="scanQRCode()">Scan QR Code</button>
             <div id="reader"></div>
             <form id="decryptForm" onsubmit="event.preventDefault(); decryptPrivateKey();">
-                <textarea id="encryptedPayload" placeholder="Paste your encrypted payload here" rows="4"></textarea>
+                <textarea id="encryptedPayload" placeholder="Paste your encrypted payload here" style="height: auto; overflow: hidden;"></textarea>
                 <input type="password" id="decryptPassword" placeholder="Enter your password">
                 <button type="submit">Decrypt</button>
             </form>
             <p id="decryptStatus" class="status"></p>
-            <textarea id="decryptedOutput" readonly rows="4" placeholder="Decrypted private key will appear here"></textarea>
+            <textarea id="decryptedOutput" readonly style="height: auto; overflow: hidden;" placeholder="Decrypted private key will appear here"></textarea>
             <div id="decryptRecoveryKeyOption" style="display: none; margin: 10px 0; text-align: left; padding-left: 3px;">
                 <label style="display: inline-flex; align-items: center; white-space: nowrap; line-height: 1;">
                     <span style="margin-right: 5px;">Recovery Key?</span>

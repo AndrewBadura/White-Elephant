@@ -33,7 +33,10 @@
             }
 
             Promise.all(libraries.map(loadScript))
-                .then(() => console.log('All resources loaded'))
+                .then(() => {
+                    console.log('All resources loaded');
+                    initAutoResizeTextareas();
+                })
                 .catch(error => console.error('Error loading resources:', error));
         });
     </script>
@@ -44,13 +47,13 @@
     <div class="wrapper">
         <div class="panel" style="flex: 0 0 100%; max-width: 600px; margin: 0 auto;">
             <form id="encryptForm" onsubmit="event.preventDefault(); encryptPrivateKey();">
-                <textarea id="privateKey" placeholder="Enter your private key" rows="4"></textarea>
+                <textarea id="privateKey" placeholder="Enter your private key" style="height: auto; overflow: hidden;"></textarea>
                 <input type="password" id="encryptPassword" placeholder="Enter password" autocomplete="new-password">
                 <input type="password" id="confirmEncryptPassword" placeholder="Confirm password" autocomplete="new-password">
                 <button type="submit">Encrypt</button>
             </form>
             <p id="encryptStatus" class="status"></p>
-            <textarea id="encryptedOutput" readonly rows="4" placeholder="Encrypted payload will appear here"></textarea>
+            <textarea id="encryptedOutput" readonly style="height: auto; overflow: hidden;" placeholder="Encrypted payload will appear here"></textarea>
             <div id="qrcode" style="display: flex; justify-content: center; margin: 10px 0;"></div>
             <button class="copy-btn" onclick="copyToClipboard('encryptedOutput')">Copy Encrypted Payload</button>
             <button class="download-btn" onclick="downloadQRCode()">Download QR Code</button>

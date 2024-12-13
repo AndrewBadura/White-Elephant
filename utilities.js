@@ -59,6 +59,18 @@ function generateQRCode(text, containerId, size = 128) {
     });
 }
 
+// Auto-resize textareas
+function initAutoResizeTextareas() {
+    document.querySelectorAll('textarea').forEach(textarea => {
+        textarea.style.height = 'auto';
+        textarea.style.height = textarea.scrollHeight + 'px';
+        textarea.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = this.scrollHeight + 'px';
+        });
+    });
+}
+
 function downloadQRCode(containerId = "qrcode") {
     const qrContainer = document.getElementById(containerId).getElementsByTagName("img")[0];
     if (!qrContainer) {
