@@ -156,15 +156,6 @@ function decryptPrivateKey() {
         
         // Show recovery key checkbox after successful decryption
         document.getElementById('decryptRecoveryKeyOption').style.display = 'block';
-        
-        // Generate initial QR code with decrypted output
-        const qrContainer = document.getElementById("decryptQrcode");
-        qrContainer.innerHTML = "";
-        new QRCode(qrContainer, {
-            text: privateKey,
-            width: 128,
-            height: 128,
-        });
     } catch (error) {
         status.textContent = "Error during decryption: " + error.message;
         status.className = "status error";
