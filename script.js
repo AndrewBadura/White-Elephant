@@ -130,8 +130,11 @@ function decryptPrivateKey() {
     const status = document.getElementById("decryptStatus");
     const output = document.getElementById("decryptedOutput");
     
-    // Clear previous output
+    // Clear previous output and status
     output.value = '';
+    status.textContent = '';
+    status.className = '';
+
     if (!encryptedPayload || !password) {
         status.textContent = "Encrypted payload and password are required.";
         status.className = "status error";
