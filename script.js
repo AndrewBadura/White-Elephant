@@ -146,6 +146,8 @@ function decryptPrivateKey() {
         const privateKey = decrypted.toString(CryptoJS.enc.Utf8);
         if (!privateKey) throw new Error("Invalid password or corrupted data.");
         output.value = privateKey;
+        output.style.height = 'auto';
+        output.style.height = output.scrollHeight + 'px';
         status.textContent = "Private key decrypted successfully!";
         status.className = "status";
         
