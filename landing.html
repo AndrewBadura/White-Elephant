@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Private Key Operations</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="snow.css">
+    <script>
+        function createSnowflake() {
+            const snowflake = document.createElement('div');
+            snowflake.classList.add('snowflake');
+            snowflake.innerHTML = '❄';
+            snowflake.style.left = Math.random() * 100 + 'vw';
+            snowflake.style.animationDuration = Math.random() * 3 + 2 + 's';
+            snowflake.style.opacity = Math.random() * 0.4 + 0.2;
+            snowflake.style.animation = `snowfall ${Math.random() * 3 + 2}s linear forwards`;
+            document.body.appendChild(snowflake);
+            setTimeout(() => {
+                snowflake.remove();
+            }, 5000);
+        }
+
+        window.onload = function() {
+            setInterval(createSnowflake, 300);
+        };
+    </script>
+</head>
+<body>
+    <h1>White 🐘 2024</h1>
+    <div class="wrapper" style="justify-content: center; text-align: center;">
+        <div class="panel" style="flex: 0 0 100%; max-width: 600px;">
+            <h2>Are you the ...</h2>
+            <!-- <p>Select the operation you want to perform:</p> -->
+            <div style="margin: 20px 0;">
+                <a href="encrypt.html" style="text-decoration: none;">
+                    <button style="margin-bottom: 10px;">Giver</button>
+                </a>
+                <p>OR</p>
+                <a href="decrypt.html" style="text-decoration: none;">
+                    <button>Receiver</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

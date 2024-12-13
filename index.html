@@ -3,9 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secure Private Key Operations</title>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="Strict-Transport-Security" content="max-age=31536000; includeSubDomains">
+    <title>Countdown</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="snow.css">
+    <style>
+        .countdown {
+            font-size: 2.5em;
+            text-align: center;
+            margin: 20px 0;
+            font-family: monospace;
+        }
+        .countdown-wrapper {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+            margin: 20px auto;
+            max-width: 600px;
+        }
+        .countdown-label {
+            font-size: 0.4em;
+            display: block;
+            margin-top: 5px;
+            color: #888;
+        }
+        .redirect-button {
+            display: none;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+        }
+        .redirect-button:hover {
+            background-color: #45a049;
+        }
+    </style>
     <script>
         function createSnowflake() {
             const snowflake = document.createElement('div');
@@ -21,28 +61,57 @@
             }, 5000);
         }
 
-        window.onload = function() {
+        function updateCountdown() {
+            const targetDate = new Date('2024-12-14T23:00:00-06:00'); // CST is UTC-6
+            const now = new Date();
+            const diff = targetDate - now;
+
+            if (diff <= 0) {
+                document.getElementById('countdown').innerHTML = "Time's up!";
+                document.getElementById('redirectButton').style.display = 'block';
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('countdown').innerHTML = 
+                `${days}d ${hours}h ${minutes}m ${seconds}s` +
+                '<span class="countdown-label">until the surprise...</span>';
+        }
+
+        window.addEventListener('load', function() {
             setInterval(createSnowflake, 300);
-        };
+            setInterval(updateCountdown, 1000);
+            updateCountdown();
+        });
+
+        function redirectToDecrypt() {
+            const targetDate = new Date('2024-12-14T23:37:00-06:00');
+            const now = new Date();
+            if (now >= targetDate) {
+                window.location.href = 'decrypt.html'; //change me before publishing
+            }
+        }
     </script>
 </head>
 <body>
-    <h1>White Elephant 2024</h1>
-    <div class="wrapper" style="justify-content: center; text-align: center;">
-        <div class="panel" style="flex: 0 0 100%; max-width: 600px;">
-            <h2>Are you the ...</h2>
-            <!-- <p>Select the operation you want to perform:</p> -->
-            <div style="margin: 20px 0;">
-                <a href="encrypt.html" style="text-decoration: none;">
-                    <button style="margin-bottom: 10px;">Giver</button>
-                </a>
-                <p>OR</p>
-                <a href="decrypt.html" style="text-decoration: none;">
-                    <button>Receiver</button>
-                </a>
-            </div>
+    <h1>White 🐘 2024</h1>
+    <p style="text-align: center; font-size: 0.9em; margin-top: -10px;">
+        <i>Something special is coming...</i>
+    </p>
+    <div class="wrapper">
+        <div class="countdown-wrapper">
+            <div id="countdown" class="countdown"></div>
+            <button id="redirectButton" class="redirect-button" onclick="redirectToDecrypt()">
+                🎁 Unwrap Your Gift 🎁
+            </button>
         </div>
     </div>
+    <div style="text-align: center; margin-top: 20px;">
+        <a href="https://lol.wherd.xyz">Æbeteazer $¢røøge</a>
+    </div>
 </body>
-
 </html>
