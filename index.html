@@ -46,21 +46,8 @@
             background-color: #45a049;
         }
     </style>
+    <script src="utilities.js"></script>
     <script>
-        function createSnowflake() {
-            const snowflake = document.createElement('div');
-            snowflake.classList.add('snowflake');
-            snowflake.innerHTML = '❄';
-            snowflake.style.left = Math.random() * 100 + 'vw';
-            snowflake.style.animationDuration = Math.random() * 3 + 2 + 's';
-            snowflake.style.opacity = Math.random() * 0.4 + 0.2;
-            snowflake.style.animation = `snowfall ${Math.random() * 3 + 2}s linear forwards`;
-            document.body.appendChild(snowflake);
-            setTimeout(() => {
-                snowflake.remove();
-            }, 5000);
-        }
-
         function updateCountdown() {
             const targetDate = new Date('2024-12-12T23:00:00-06:00'); // CST is UTC-6
             const now = new Date();

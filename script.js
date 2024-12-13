@@ -9,21 +9,6 @@ function getUrlParameter(name) {
 }
 
 
-function copyToClipboard(elementId) {
-    const textarea = document.getElementById(elementId);
-    textarea.select();
-    document.execCommand('copy');
-    
-    // Create success message
-    const msg = document.createElement('span');
-    msg.textContent = 'Copied!';
-    msg.className = 'copy-success';
-    textarea.parentNode.appendChild(msg);
-    
-    // Remove message after animation
-    setTimeout(() => msg.remove(), 2000);
-}
-
 
 function encryptPrivateKey() {
     if (!rateLimiter.checkLimit('encrypt')) {
