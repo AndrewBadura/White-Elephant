@@ -76,28 +76,7 @@
                 rotation = getRandomInt(1, 26);
             }
     
-            if (diff <= 0) {
-                // Countdown is over, reveal the surprise
-                const countdownElement = document.getElementById('countdown');
-                countdownElement.innerHTML = "0d 0h 0m 0s";
-                countdownElement.classList.add('blink');
-                document.getElementById('redirectButton').style.display = 'block';
-                document.querySelector('body > p > i').textContent = "Something special has arrived!";
-                return; // Skip the regular countdown update
-            }
-    
-            // Calculate time remaining
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-    
-            // Update the countdown display
-            document.getElementById('countdown').innerHTML = 
-                `${days}d ${hours}h ${minutes}m ${seconds}s` +
-                '<span class="countdown-label">until the surprise...</span>';
-    
-            // Update the hint text with original or rotated version
+            // Update the hint text with original or rotated version (do this first, before any returns)
             const hintElement = document.getElementById('hint');
             if (isRotated) {
                 hintElement.textContent = secretWord;
@@ -112,6 +91,27 @@
                 hintElement.textContent = rotatedSecretWord;
             }
             isRotated = !isRotated; // Toggle the state for next update
+
+            if (diff <= 0) {
+                // Countdown is over, reveal the surprise
+                const countdownElement = document.getElementById('countdown');
+                countdownElement.innerHTML = "0d 0h 0m 0s";
+                countdownElement.classList.add('blink');
+                document.getElementById('redirectButton').style.display = 'block';
+                document.querySelector('body > p > i').textContent = "Something special has arrived!";
+                return; // Skip the regular countdown update
+            }
+
+            // Calculate time remaining
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            // Update the countdown display
+            document.getElementById('countdown').innerHTML = 
+                `${days}d ${hours}h ${minutes}m ${seconds}s` +
+                '<span class="countdown-label">until the surprise...</span>';
         }
     
         window.addEventListener('load', function() {
