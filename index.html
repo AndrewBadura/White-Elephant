@@ -48,15 +48,27 @@
     </style>
     <script src="utilities.js"></script>
     <script>
+        function getRandomInt(min, max) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        };
+        
         function updateCountdown() {
-            const targetDate = new Date('2024-12-14T23:00:00-06:00'); // CST is UTC-6
+            const targetDate = new Date('2024-12-14T22:45:00-06:00'); // CST is UTC-6
             const now = new Date();
             const diff = targetDate - now;
+            const secretWord = "entrpntr";
+            const rotation = getRandomInt(1,26);
 
             if (diff <= 0) {
-                document.getElementById('countdown').innerHTML = "Time's up!";
+                // document.getElementById('countdown').innerHTML = "0d 0h 0m 0s";
                 document.getElementById('redirectButton').style.display = 'block';
                 document.querySelector('body > p > i').textContent = "Something special has arrived!";
+                document.getElementById('redirectButton').innerHTML =
+                    secretWord.replace(/[a-zA-Z]/g, function (c) {
+                    return String.fromCharCode((c <= "Z" ? 90 : 122) >= (c = c.charCodeAt(0) + rotation) ? c : c - 26);
+            });
                 return;
             }
 
@@ -68,6 +80,12 @@
             document.getElementById('countdown').innerHTML = 
                 `${days}d ${hours}h ${minutes}m ${seconds}s` +
                 '<span class="countdown-label">until the surprise...</span>';
+
+            //Write code here for entrpntr
+            document.getElementById('hint').innerHTML =
+            secretWord.replace(/[a-zA-Z]/g, function (c) {
+             return String.fromCharCode((c <= "Z" ? 90 : 122) >= (c = c.charCodeAt(0) + rotation) ? c : c - 26);
+            });
         }
 
         window.addEventListener('load', function() {
@@ -88,6 +106,7 @@
     </p>
     <div class="wrapper">
         <div class="countdown-wrapper">
+            <div id="hint" class="countdown"></div>
             <div id="countdown" class="countdown"></div>
             <button id="redirectButton" class="redirect-button" onclick="redirectToDecrypt()">
                 🎁 Unwrap Your Gift 🎁
