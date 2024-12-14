@@ -73,13 +73,6 @@
                 document.getElementById('countdown').innerHTML = "0d 0h 0m 0s";
                 document.getElementById('redirectButton').style.display = 'block';
                 document.querySelector('body > p > i').textContent = "Something special has arrived!";
-                document.getElementById('hint').innerHTML =
-                    secretWord.replace(/[a-zA-Z]/g, function (c) {
-                        return String.fromCharCode(
-                            (c <= "Z" ? 90 : 122) >= (c = c.charCodeAt(0) + rotation) ? c : c - 26
-                        );
-                    });
-                return;
             }
     
             // Calculate time remaining
