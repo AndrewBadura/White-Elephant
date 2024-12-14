@@ -59,7 +59,7 @@
         };
     
         function updateCountdown() {
-            const targetDate = new Date('2024-12-14T22:45:00-06:00'); // CST is UTC-6
+            const targetDate = new Date('2024-12-13T22:45:00-06:00'); // CST is UTC-6
             const now = new Date();
             const diff = targetDate - now;
     
@@ -73,7 +73,7 @@
                 document.getElementById('countdown').innerHTML = "0d 0h 0m 0s";
                 document.getElementById('redirectButton').style.display = 'block';
                 document.querySelector('body > p > i').textContent = "Something special has arrived!";
-                document.getElementById('redirectButton').innerHTML =
+                document.getElementById('hint').innerHTML =
                     secretWord.replace(/[a-zA-Z]/g, function (c) {
                         return String.fromCharCode(
                             (c <= "Z" ? 90 : 122) >= (c = c.charCodeAt(0) + rotation) ? c : c - 26
