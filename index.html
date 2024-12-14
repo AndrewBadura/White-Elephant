@@ -49,6 +49,7 @@
     <script src="utilities.js"></script>
     <script>
         let rotation; // Declare rotation globally
+        let isRotated = false; // Track if we're showing rotated or original
         const secretWord = "entrpntr"; // Always start with the original word
     
         function getRandomInt(min, max) {
@@ -92,15 +93,20 @@
                 `${days}d ${hours}h ${minutes}m ${seconds}s` +
                 '<span class="countdown-label">until the surprise...</span>';
     
-            // Generate the rotated version of the secret word using the fixed rotation
-            const rotatedSecretWord = secretWord.replace(/[a-zA-Z]/g, function (c) {
-                return String.fromCharCode(
-                    (c <= "Z" ? 90 : 122) >= (c = c.charCodeAt(0) + rotation) ? c : c - 26
-                );
-            });
-    
-            // Update the hint element with the rotated secret word
-            document.getElementById('hint').innerHTML = rotatedSecretWord;
+            // Toggle between original and rotated version
+            if (isRotated) {
+                document.getElementById('hint').innerHTML = secretWord;
+            } else {
+                // Generate new rotation each time
+                rotation = getRandomInt(1, 26);
+                const rotatedSecretWord = secretWord.replace(/[a-zA-Z]/g, function (c) {
+                    return String.fromCharCode(
+                        (c <= "Z" ? 90 : 122) >= (c = c.charCodeAt(0) + rotation) ? c : c - 26
+                    );
+                });
+                document.getElementById('hint').innerHTML = rotatedSecretWord;
+            }
+            isRotated = !isRotated; // Toggle the state
         }
     
         window.addEventListener('load', function() {
