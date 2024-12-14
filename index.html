@@ -97,9 +97,10 @@
                 `${days}d ${hours}h ${minutes}m ${seconds}s` +
                 '<span class="countdown-label">until the surprise...</span>';
     
-            // Toggle between original and rotated version
+            // Update the hint text with original or rotated version
+            const hintElement = document.getElementById('hint');
             if (isRotated) {
-                document.getElementById('hint').innerHTML = secretWord;
+                hintElement.textContent = secretWord;
             } else {
                 // Generate new rotation each time
                 rotation = getRandomInt(1, 26);
@@ -108,9 +109,9 @@
                         (c <= "Z" ? 90 : 122) >= (c = c.charCodeAt(0) + rotation) ? c : c - 26
                     );
                 });
-                document.getElementById('hint').innerHTML = rotatedSecretWord;
+                hintElement.textContent = rotatedSecretWord;
             }
-            isRotated = !isRotated; // Toggle the state
+            isRotated = !isRotated; // Toggle the state for next update
         }
     
         window.addEventListener('load', function() {
